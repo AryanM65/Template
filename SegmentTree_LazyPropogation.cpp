@@ -11,7 +11,7 @@ class SegmentTree{
     }
     void build(int index, int low, int high, vector<int> &a){
         if(low == high){
-            seg[index] = a[index];
+            seg[index] = a[low];
             return;
         }
         int mid = (low + high)/2;
@@ -37,8 +37,8 @@ class SegmentTree{
             //simply update and propogate the update downwards
             seg[index] += (high - low + 1)*val;
             if(low != high){
-                seg[2*index+1] += val;
-                seg[2*index+2] += val;
+                lazy[2*index+1] += val;
+                lazy[2*index+2] += val;
             }
             return;
         }
@@ -52,8 +52,8 @@ class SegmentTree{
         if(lazy[index] != 0){
             seg[index] += (high - low + 1)*lazy[index];
             if(low != high){
-                seg[2*index+1] += lazy[index];
-                seg[2*index+2] += lazy[index]; 
+                lazy[2*index+1] += lazy[index];
+                lazy[2*index+2] += lazy[index]; 
             }
             lazy[index] = 0;
         }
