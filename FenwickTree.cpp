@@ -27,6 +27,18 @@ class FenwickTree{
     int range(int l, int r){
         return sum(r) - sum(l-1);
     }
+    //for lower bound
+    int find(int k){
+        int curr = 0, prevsum = 0;
+        int n = fen.size();
+        for(int i = log2(n); i>=0; i--){
+            if(prevsum + fen[curr + 1 << i] < k){
+                curr = curr + 1 << i;
+                prevsum += fen[curr];
+            }
+        }
+        return curr + 1;
+    }
 };
 
 int main() {
